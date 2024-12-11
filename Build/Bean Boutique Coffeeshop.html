@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bean Boutique Coffeeshop</title>
+  
+  <!-- Bootstrap CDN -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <!-- FullCalendar CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="stylees.css">
+  <style>
+    /* General Styles */
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+    }
+
+    h1, h5 {
+      color: #6b4f30;
+    }
+
+    .navbar {
+      background-color: #fff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .carousel-caption h5 {
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    /* Footer */
+    footer {
+      padding: 20px;
+      background-color: #2c2c2c;
+      color: #fff;
+    }
+
+    /* Card Styles */
+    .card {
+      margin-bottom: 20px;
+      border-radius: 10px;
+    }
+
+    .card-body {
+      background-color: #fff;
+      padding: 15px;
+    }
+
+    @media only screen and (max-width: 768px) {
+      .navbar-nav {
+        flex-direction: column;
+      }
+
+      .carousel-caption h5 {
+        font-size: 1rem;
+      }
+    }
+
+    /* Modal Styling */
+    #welcomeModal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    #welcomeModal .modal-content {
+      margin: 15% auto;
+      padding: 20px;
+      width: 80%;
+      background-color: white;
+      border-radius: 5px;
+    }
+    
+    .carousel-item img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    }
+
+  /* Improved Card Image Quality */
+  .card-img-top {
+    width: 100%;
+    max-height: 300px; /* Increased height for better quality in cards */
+    object-fit: cover;
+  }
+
+  .image-container {
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 500px; /* Set a specific height for the carousel */
+}
+
+/* Highlight search results */
+.highlight {
+  background-color: yellow;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+.carousel-item img {
+    max-height: 100%; /* Ensure the image doesn't exceed the container height */
+    object-fit: cover; /* Maintain aspect ratio and cover the container */
+}
+
+/* Offers Section */
+#offers-section .card {
+  background-color: #F9F5F1; /* Light cream */
+}
+
+#offers-section .card-title {
+  color: #6B4E32;
+}
+
+#offers-section .btn-primary {
+  background-color: #3A2D21;
+}
+
+#offers-section .btn-primary:hover {
+  background-color: #6B4E32;
+}
+
+.btn-go-to-cart {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #6a4f4b;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.btn-go-to-cart:hover {
+  background-color: #543d3a;
+}
+
+.modal-content {
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+  .modal-header {
+      background-color: #f8f9fa;
+      border-bottom: 1px solid #dee2e6;
+  }
+  .modal-title {
+      color: #333;
+  }
+  .modal-body {
+      padding: 20px;
+      background-color: #fff;
+  }
+  .form-control {
+      margin-bottom: 15px;
+      border-radius: 4px;
+  }
+  .btn-success {
+      background-color: #28a745;
+      border-color: #28a745;
+  }
+  .btn-success:hover {
+      background-color: #218838;
+      border-color: #1e7e34;
+  }
+
+  .searchable-content {
+      margin-bottom: 10px;
+    }
+    
+    #signupSuccessMessage {
+    font-weight: bold;
+    text-align: center;
+  }
+
+   #calendar {
+      max-width: 900px;
+      margin: 40px auto;
+    }
+   
+    /* Calendar container styling */
+#calendar {
+  max-width: 90%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Add some styling to event text */
+.fc-event {
+  background-color: #4CAF50; /* Green color */
+  color: white;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* Styling for event title hover */
+.fc-event:hover {
+  background-color: #45a049;
+  cursor: pointer;
+}
+
+/* Additional styling for buttons (e.g., navigation) */
+.fc-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.fc-button:hover {
+  background-color: #45a049;
+}
+
+
+</style>
+</head>
+<body>
+
+  <!-- Header Section -->
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Bean Boutique</a>
+     
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#coffee-selection">Coffee</a></li>
+          <li class="nav-item"><a class="nav-link" href="#brewing-equipment">Brewing Equipment</a></li>
+          <li class="nav-item"><a class="nav-link" href="#events">Events</a></li>
+          <li class="nav-item"><a class="nav-link" href="#shopping-cart">Cart</a></li>
+          <li class="nav-item"><a class="nav-link" href="#offers-section">Offers</a></li>
+          <li class="nav-item"><a class="nav-link" href="#" data-toggle="modal" data-target="#signupModal">Sign Up</a></li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0 ml-lg-3">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="searchInput" oninput="performSearch()">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="performSearch()">Search</button>
+        </form>
+        
+      </div>
+    </nav>
+  </header>
+  
+
+
+  <!-- Carousel Section -->
+<section class="carousel slide" id="coffeeCarousel" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <div class="image-container">
+        <img src="co17-large.png"
+             srcset="co17-small.png 300w, co17-medium.png 600w, co17-large.png 900w"
+             sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw"
+             loading="lazy"
+             class="d-block w-100" alt="Coffee 1">
+        <div class="carousel-caption">
+          <h5>Our Signature Blends</h5>
+          <p>Discover the richness of Bean Boutique coffees.</p>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="image-container">
+        <img src="equip.jpg"
+             srcset="equip.jpg 300w, equip.jpg 600w, equip.jpg 900w"
+             sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw"
+             loading="lazy"
+             class="d-block w-100" alt="Coffee 2">
+        <div class="carousel-caption">
+          <h5>Premium Brewing Equipment</h5>
+          <p>Brew like a pro with our top-rated equipment.</p>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="image-container">
+        <img src="beans.jpg"
+             
+             class="d-block w-100" alt="Coffee Image 1">
+        <div class="carousel-caption">
+          <h5>Quality Coffee Beans</h5>
+          <p>Experience the best with our selection of premium beans.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#coffeeCarousel" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+  </a>
+  <a class="carousel-control-next" href="#coffeeCarousel" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+  </a>
+</section>
+
+<!-- Sign Up Modal -->
+<div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="signupModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="signupModalLabel">Welcome to Bean Boutique!</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              <p>Sign up now to get a 20% discount on your first purchase!</p>
+              <form id="signupForm">
+                  <div class="form-group">
+                      <label for="fullName">Full Name</label>
+                      <input type="text" class="form-control" id="fullName" placeholder="Enter your full name" required>
+                  </div>
+                  <div class="form-group">
+                      <label for="email">Email Address</label>
+                      <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                  </div>
+                  <div class="form-group">
+                      <label for="password">Password</label>
+                      <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
+                  </div>
+                  <div class="form-group">
+                      <label for="confirmPassword">Confirm Password</label>
+                      <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm your password" required>
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+              </form>
+              <p id="signupSuccessMessage" class="mt-3 text-success" style="display: none;">
+                  Congratulations! You've received a 20% discount. It has been applied to all prices!
+              </p>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+  <!-- Coffee Selection Section -->
+<section id="coffee-selection" class="container mt-5">
+  <h1 onclick="redirectToExtraMenu()">Coffee Selection</h1>
+  
+<!-- Search Bar -->
+<div class="mb-3">
+  <input
+    type="text"
+    id="searchBox"
+    class="form-control"
+    placeholder="Search for coffee (e.g., Espresso, Green Tea, etc.)"
+    onkeyup="filterCoffeeMenu()"
+  />
+</div>
+
+  <!-- Main Coffee Menu -->
+  <div class="row" id="mainCoffeeMenu">
+    <div class="col-md-4 searchable-content">
+      <div class="card">
+        <img src="espresso.jpg" class="card-img-top" alt="Coffee 1">
+        <div class="card-body">
+          <h5 class="card-title">Espresso</h5>
+          <p class="card-text">Rich, robust notes with a bold intensity and a hint of dark chocolate and roasted nuts.</p>
+          <p class="card-price">$13</p>
+          <button class="btn btn-primary">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 searchable-content">
+      <div class="card">
+        <img src="green.jpg" class="card-img-top" alt="Coffee 2">
+        <div class="card-body">
+          <h5 class="card-title">Green Tea</h5>
+          <p class="card-text">Delicate, grassy notes with a light, refreshing quality and steamed vegetables.</p>
+          <p class="card-price">$22</p>
+          <button class="btn btn-primary">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 searchable-content">
+      <div class="card">
+        <img src="hot.jpg" class="card-img-top" alt="Coffee 3">
+        <div class="card-body">
+          <h5 class="card-title">Hot Chocolate</h5>
+          <p class="card-text">Creamy, velvety texture and hints of rich cocoa and a touch of vanilla.</p>
+          <p class="card-price">$23</p>
+          <button class="btn btn-primary">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Additional Coffee Menu -->
+  <div class="row mt-4" id="extraCoffeeMenu" style="display: none;">
+    <div class="col-md-4 searchable-content">
+      <div class="card">
+        <img src="latte.jpg" class="card-img-top" alt="Coffee 4">
+        <div class="card-body">
+          <h5 class="card-title">Latte</h5>
+          <p class="card-text">Smooth and creamy with steamed milk and a shot of espresso.</p>
+          <p class="card-price">$15</p>
+          <button class="btn btn-primary">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 searchable-content">
+      <div class="card">
+        <img src="Mocha.png" class="card-img-top" alt="Coffee 5">
+        <div class="card-body">
+          <h5 class="card-title">Mocha</h5>
+          <p class="card-text">A delightful mix of chocolate and espresso, topped with whipped cream.</p>
+          <p class="card-price">$17</p>
+          <button class="btn btn-primary">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 searchable-content">
+      <div class="card">
+        <img src="cold.png" class="card-img-top" alt="Coffee 6">
+        <div class="card-body">
+          <h5 class="card-title">Cold Brew</h5>
+          <p class="card-text">Smooth and refreshing, steeped for hours for a perfect cold coffee.</p>
+          <p class="card-price">$20</p>
+          <button class="btn btn-primary">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+    
+  
+
+  <!-- Brewing Equipment Section -->
+<section id="brewing-equipment" class="container mt-5">
+  <h1 onclick="toggleExtraEquipment()">Equipment Selection</h1>
+  
+<!-- Search Bar -->
+<div class="mb-3">
+  <input
+    type="text"
+    id="equipmentSearchBox"
+    class="form-control"
+    placeholder="Search for equipment (e.g., Espresso Machine, French Press, etc.)"
+    onkeyup="filterEquipmentMenu()"
+  />
+</div>
+
+  <!-- Main Equipment Menu -->
+  <div class="row" id="mainEquipmentMenu">
+    <div class="col-md-4 searchable-content">
+      <div class="card">
+        <img src="machine.jpg" class="card-img-top" alt="Espresso Machine">
+        <div class="card-body">
+          <h5 class="card-title">Espresso Machine</h5>
+          <p class="card-text">Perfect for making barista-quality espresso at home.</p>
+          <p class="card-price">$250</p>
+          <button class="btn btn-primary">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 searchable-content">
+      <div class="card">
+        <img src="french.jpg" class="card-img-top" alt="French Press">
+        <div class="card-body">
+          <h5 class="card-title">French Press</h5>
+          <p class="card-text">Simple and elegant way to brew full-bodied coffee.</p>
+          <p class="card-price">$30</p>
+          <button class="btn btn-primary">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 searchable-content">
+      <div class="card">
+        <img src="pour.jpg" class="card-img-top" alt="Pour-over Brewer">
+        <div class="card-body">
+          <h5 class="card-title">Pour-over Brewer</h5>
+          <p class="card-text">Allows for a controlled and precise brewing process.</p>
+          <p class="card-price">$50</p>
+          <button class="btn btn-primary">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Additional Equipment Menu -->
+  <div class="row mt-4" id="extraEquipmentMenu" style="display: none;">
+    <div class="col-md-4 searchable-content">
+      <div class="card">
+        <img src="cg.png" class="card-img-top" alt="Coffee Grinder">
+        <div class="card-body">
+          <h5 class="card-title">Coffee Grinder</h5>
+          <p class="card-text">Grind fresh coffee beans for the perfect brew.</p>
+          <p class="card-price">$100</p>
+          <button class="btn btn-primary">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 searchable-content">
+      <div class="card">
+        <img src="kettlee.jpg" class="card-img-top" alt="Gooseneck Kettle">
+        <div class="card-body">
+          <h5 class="card-title">Gooseneck Kettle</h5>
+          <p class="card-text">Achieve precise pouring control for pour-over brewing.</p>
+          <p class="card-price">$60</p>
+          <button class="btn btn-primary">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 searchable-content">
+      <div class="card">
+        <img src="aeropress.jpg" class="card-img-top" alt="AeroPress">
+        <div class="card-body">
+          <h5 class="card-title">AeroPress</h5>
+          <p class="card-text">Innovative brewing for smooth and rich coffee.</p>
+          <p class="card-price">$40</p>
+          <button class="btn btn-primary">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+  <!-- Events Section -->
+<section id="events" class="container mt-5">
+  <h1>Events & Workshops</h1>
+
+  
+
+  <!-- Event Listing -->
+  <div id="eventListing" class="row">
+    <!-- Event Cards -->
+    <div class="col-md-6 mt-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Coffee Tasting Workshop</h5>
+          <p class="card-text">Explore various coffee blends and single-origin beans in an exclusive tasting session.</p>
+          <p><strong>Date:</strong> December 10, 2024</p>
+          <p><strong>Time:</strong> 10:00 AM - 12:00 PM</p>
+          <button onclick="registerEvent('Coffee Tasting Workshop')" class="btn btn-primary">Register</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 mt-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Brewing Masterclass</h5>
+          <p class="card-text">Learn the art of brewing with expert baristas and gain hands-on experience.</p>
+          <p><strong>Date:</strong> December 12, 2024</p>
+          <p><strong>Time:</strong> 2:00 PM - 4:00 PM</p>
+          <button onclick="registerEvent('Brewing Masterclass')" class="btn btn-primary">Register</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 mt-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Latte Art Workshop</h5>
+          <p class="card-text">Master the art of creating stunning latte art designs with professional guidance.</p>
+          <p><strong>Date:</strong> December 15, 2024</p>
+          <p><strong>Time:</strong> 11:00 AM - 1:00 PM</p>
+          <button onclick="registerEvent('Latte Art Workshop')" class="btn btn-primary">Register</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 mt-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Sustainable Coffee Practices</h5>
+          <p class="card-text">Learn eco-friendly practices in coffee cultivation and consumption.</p>
+          <p><strong>Date:</strong> December 20, 2024</p>
+          <p><strong>Time:</strong> 3:00 PM - 5:00 PM</p>
+          <button onclick="registerEvent('Sustainable Coffee Practices')" class="btn btn-primary">Register</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section id="calendar">
+    <h2>Upcoming Events</h2>
+    <div id="calendar-container"></div>
+  </section>
+  <section id="event-list">
+    <h2>Event Details</h2>
+    <div id="event-details">
+        <p>Select a date on the calendar to see events.</p>
+    </div>
+  </section>
+
+
+
+  <!-- Subscription Section -->
+  <div class="subscribe-section mt-5 text-center">
+    <h2>Stay Updated on Upcoming Events</h2>
+    <p>Subscribe to receive notifications about our future events and workshops.</p>
+    <form id="subscribeForm">
+      <div class="form-group">
+        <input type="email" id="subscriberEmail" class="form-control" placeholder="Enter your email" required>
+      </div>
+      <button type="button" class="btn btn-primary" onclick="handleSubscribe()">Subscribe</button>
+    </form>
+  </div>
+</section>
+
+
+
+
+<script>
+  function handleSubscribe() {
+    const emailInput = document.getElementById('subscriberEmail').value.trim();
+
+    if (!emailInput) {
+      alert('Please enter a valid email address to subscribe.');
+      return;
+    }
+
+    alert(`Thank you for subscribing! Updates will be sent to ${emailInput}.`);
+    
+    // Optionally reset the form after successful subscription
+    document.getElementById('subscribeForm').reset();
+  }
+</script>
+
+
+
+
+  
+
+
+<!-- Modal for Coffee Tasting Workshop Registration -->
+<div class="modal" id="workshopModal" tabindex="-1" role="dialog" aria-labelledby="workshopModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="workshopModalLabel">Register for Coffee Tasting Workshop</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="workshopSignupForm">
+                    <div class="form-group">
+                        <label for="workshopFirstName">First Name</label>
+                        <input type="text" class="form-control" id="workshopFirstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="workshopLastName">Last Name</label>
+                        <input type="text" class="form-control" id="workshopLastName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="workshopEmail">Email</label>
+                        <input type="email" class="form-control" id="workshopEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="workshopPhone">Phone Number</label>
+                        <input type="text" class="form-control" id="workshopPhone" required>
+                    </div>
+                    <div id="workshopFormFeedback" style="display: none;"></div>
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Offers Section -->
+<section id="offers-section" class="container mt-5">
+  <h2>Special Offers</h2>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Buy 1 Get 1 Free</h5>
+          <p class="card-text">Enjoy our exclusive offer on espresso drinks. Valid through this weekend only!</p>
+          <button class="btn btn-primary" onclick="alert('Offer claimed: Buy 1 Get 1 Free!')">Claim Offer</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">20% Off Brewing Equipment</h5>
+          <p class="card-text">Get 20% off on select brewing equipment. Perfect for coffee lovers looking to upgrade their setup.</p>
+          <button class="btn btn-primary" onclick="alert('Offer claimed: 20% Off Equipment!')">Claim Offer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+  <section id="shopping-cart" class="container mt-5">
+    <h1>Your Cart</h1>
+    <div class="row">
+        <div class="col-md-8">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="cartItems">
+                    <tr data-item-id="1">
+                        <td>Ethiopian Yirgacheffe</td>
+                        <td>$18</td>
+                        <td>
+                            <input type="number" class="form-control qty-input" value="2" min="1">
+                        </td>
+                        <td class="item-total">$36</td>
+                        <td>
+                            <button class="btn btn-danger remove-item">Remove</button>
+                        </td>
+                    </tr>
+                    <tr data-item-id="2">
+                        <td>Espresso Machine</td>
+                        <td>$220</td>
+                        <td>
+                            <input type="number" class="form-control qty-input" value="1" min="1">
+                        </td>
+                        <td class="item-total">$220</td>
+                        <td>
+                            <button class="btn btn-danger remove-item">Remove</button>
+                        </td>
+                    </tr>
+                    <tr data-item-id="3">
+                        <td>French Press</td>
+                        <td>$45</td>
+                        <td>
+                            <input type="number" class="form-control qty-input" value="1" min="1">
+                        </td>
+                        <td class="item-total">$45</td>
+                        <td>
+                            <button class="btn btn-danger remove-item">Remove</button>
+                        </td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="col-md-4">
+            <h5>Total: $<span id="cartTotal">256</span></h5>
+            <button class="btn btn-success btn-block">Proceed to Checkout</button>
+        </div>
+    </div>
+</section>
+
+<!-- JavaScript for Cart Functionality -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Function to update cart totals dynamically
+        function updateCartTotals() {
+            let total = 0;
+            document.querySelectorAll("#cartItems tr").forEach(function (row) {
+                const price = parseFloat(row.cells[1].innerText.replace("$", ""));
+                const quantity = parseInt(row.querySelector(".qty-input").value);
+                const itemTotal = price * quantity;
+                row.querySelector(".item-total").innerText = `$${itemTotal.toFixed(2)}`;
+                total += itemTotal;
+            });
+            document.getElementById("cartTotal").innerText = total.toFixed(2);
+        }
+
+        // Event listener for quantity change
+        document.querySelectorAll(".qty-input").forEach(function (input) {
+            input.addEventListener("input", function () {
+                if (input.value < 1) input.value = 1; // Prevent negative or zero values
+                updateCartTotals();
+            });
+        });
+
+        // Event listener to remove items from cart
+        document.querySelectorAll(".remove-item").forEach(function (button) {
+            button.addEventListener("click", function () {
+                const row = button.closest("tr");
+                row.remove();
+                updateCartTotals();
+            });
+        });
+
+        // Initialize cart total calculation
+        updateCartTotals();
+    });
+</script>
+
+
+  <!-- Footer -->
+  <footer class="text-center mt-5">
+    <p>&copy; 2024 Bean Boutique Coffeeshop. All rights reserved.</p>
+  </footer>
+
+  
+
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+  document.getElementById('signupForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const fullName = document.getElementById('fullName').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+
+        if (password !== confirmPassword) {
+            alert('Passwords do not match. Please try again.');
+            return;
+        }
+
+        // Simulate a success message
+        alert(`Thank you for signing up, ${fullName}! A confirmation email has been sent to ${email}.`);
+        
+        // Close the modal
+        $('#signupModal').modal('hide');
+
+        // Ensure backdrop is removed in case of issues
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
+
+        // Optionally clear the form
+        document.getElementById('signupForm').reset();
+    });
+
+    document.getElementById('searchInput').addEventListener('input', function () {
+    const searchQuery = this.value.toLowerCase();
+
+    // Select all sections on the page
+    const sections = document.querySelectorAll('section');
+    sections.forEach(section => {
+        const sectionText = section.innerText.toLowerCase();
+        section.style.display = sectionText.startsWith(searchQuery) ? 'block' : 'none';
+    });
+
+    // Select all coffee menu items in the #mainCoffeeMenu section
+    const coffeeItems = document.querySelectorAll('#mainCoffeeMenu .card');
+    let anyMatch = false; // Flag to check if any menu item matches the query
+
+    coffeeItems.forEach(item => {
+        const title = item.querySelector('.card-title').innerText.toLowerCase();
+        const description = item.querySelector('.card-text').innerText.toLowerCase();
+        const price = item.querySelector('.card-price').innerText.toLowerCase();
+
+        // Check if the search query matches title, description, or price
+        if (title.includes(searchQuery) || description.includes(searchQuery) || price.includes(searchQuery)) {
+            item.parentElement.style.display = 'block'; // Show matching item
+            anyMatch = true;
+        } else {
+            item.parentElement.style.display = 'none'; // Hide non-matching item
+        }
+    });
+
+    // Show/hide the whole #mainCoffeeMenu section based on matches
+    const mainCoffeeMenu = document.getElementById('mainCoffeeMenu');
+    mainCoffeeMenu.style.display = anyMatch || searchQuery === "" ? 'flex' : 'none';
+
+    // Reset display when input is cleared
+    if (searchQuery === "") {
+        sections.forEach(section => section.style.display = 'block');
+        coffeeItems.forEach(item => item.parentElement.style.display = 'block');
+    }
+});
+
+// Initialize empty cart or retrieve from localStorage
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+// Function to add items to the cart
+function addToCart(itemName, itemPrice) {
+    // Check if item is already in the cart
+    const existingItem = cart.find(item => item.name === itemName);
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cart.push({ name: itemName, price: itemPrice, quantity: 1 });
+    }
+    
+    // Save the updated cart to localStorage
+    localStorage.setItem("cart", JSON.stringify(cart));
+    updateCartDisplay();
+    updateCartTotals();
+}
+
+// Function to display cart items
+function updateCartDisplay() {
+    const cartItemsContainer = document.getElementById("cartItems");
+    cartItemsContainer.innerHTML = ""; // Clear previous items
+
+    cart.forEach((item, index) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${item.name}</td>
+            <td>$${item.price.toFixed(2)}</td>
+            <td>
+                <input type="number" class="form-control qty-input" data-index="${index}" value="${item.quantity}" min="1">
+            </td>
+            <td class="item-total">$${(item.price * item.quantity).toFixed(2)}</td>
+            <td>
+                <button class="btn btn-danger remove-item" data-index="${index}">Remove</button>
+            </td>
+        `;
+        cartItemsContainer.appendChild(row);
+    });
+
+    // Add event listeners for quantity inputs and remove buttons
+    document.querySelectorAll(".qty-input").forEach(input => {
+        input.addEventListener("input", updateQuantity);
+    });
+    document.querySelectorAll(".remove-item").forEach(button => {
+        button.addEventListener("click", removeItemFromCart);
+    });
+}
+
+// Function to update quantity in the cart
+function updateQuantity(event) {
+    const index = event.target.getAttribute("data-index");
+    const quantity = parseInt(event.target.value);
+    if (quantity > 0) {
+        cart[index].quantity = quantity;
+        localStorage.setItem("cart", JSON.stringify(cart)); // Update localStorage
+        updateCartDisplay();
+        updateCartTotals();
+    }
+}
+
+// Function to remove items from the cart
+function removeItemFromCart(event) {
+    const index = event.target.getAttribute("data-index");
+    cart.splice(index, 1); // Remove item from array
+    localStorage.setItem("cart", JSON.stringify(cart)); // Update localStorage
+    updateCartDisplay();
+    updateCartTotals();
+}
+
+// Function to update the total price in the cart
+function updateCartTotals() {
+    let total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    document.getElementById("cartTotal").innerText = total.toFixed(2);
+}
+
+// Event listener for checkout button
+document.querySelector(".btn-success").addEventListener("click", function () {
+    if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+    }
+    
+    // Simulate checkout process
+    alert(`Your total is $${document.getElementById("cartTotal").innerText}. Proceeding to checkout...`);
+    
+    // Clear cart after checkout
+    cart = [];
+    localStorage.removeItem("cart"); // Clear from localStorage
+    updateCartDisplay();
+    updateCartTotals();
+});
+
+// Add event listeners for 'Add to Cart' buttons
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".card .btn").forEach((button) => {
+        button.addEventListener("click", () => {
+            const itemName = button.closest(".card").querySelector(".card-title").innerText;
+            const itemPrice = parseFloat(button.closest(".card").querySelector(".card-price").innerText.replace("$", ""));
+            addToCart(itemName, itemPrice);
+        });
+    });
+});
+
+  
+
+function redirectToExtraMenu() {
+    const extraMenu = document.getElementById("extraCoffeeMenu");
+    if (extraMenu.style.display === "none" || extraMenu.style.display === "") {
+      extraMenu.style.display = "flex";
+    } else {
+      extraMenu.style.display = "none"; // Toggle visibility
+    }
+  }
+  
+  function toggleExtraEquipment() {
+    const extraMenu = document.getElementById("extraEquipmentMenu");
+    if (extraMenu.style.display === "none" || extraMenu.style.display === "") {
+      extraMenu.style.display = "flex";
+    } else {
+      extraMenu.style.display = "none"; // Toggle visibility
+    }
+  }
+
+  function filterCoffeeMenu() {
+    const searchQuery = document
+      .getElementById("searchBox")
+      .value.toLowerCase()
+      .trim();
+
+    // Select all cards within the coffee menu
+    const cards = document.querySelectorAll(".searchable-content");
+
+    // Loop through each card to check if it matches the query
+    cards.forEach((card) => {
+      const title = card
+        .querySelector(".card-title")
+        .textContent.toLowerCase();
+      const description = card
+        .querySelector(".card-text")
+        .textContent.toLowerCase();
+
+      // Show card if query matches title or description
+      if (title.includes(searchQuery) || description.includes(searchQuery)) {
+        card.style.display = "block"; // Show matching card
+      } else {
+        card.style.display = "none"; // Hide non-matching card
+      }
+    });
+  }
+
+  function filterEquipmentMenu() {
+    const searchQuery = document
+      .getElementById("equipmentSearchBox")
+      .value.toLowerCase()
+      .trim();
+
+    // Select all equipment cards within the equipment menu
+    const cards = document.querySelectorAll(
+      "#brewing-equipment .searchable-content"
+    );
+
+    // Loop through each card to check if it matches the query
+    cards.forEach((card) => {
+      const title = card
+        .querySelector(".card-title")
+        .textContent.toLowerCase();
+      const description = card
+        .querySelector(".card-text")
+        .textContent.toLowerCase();
+
+      // Show card if query matches title or description
+      if (title.includes(searchQuery) || description.includes(searchQuery)) {
+        card.style.display = "block"; // Show matching card
+      } else {
+        card.style.display = "none"; // Hide non-matching card
+      }
+    });
+  }
+
+  // Function to apply a discount
+  function applyDiscountToPrices() {
+    const prices = document.querySelectorAll(".card-price");
+    prices.forEach((price) => {
+      const originalPrice = parseFloat(price.textContent.replace("$", ""));
+      const discountedPrice = (originalPrice * 0.8).toFixed(2); // Calculate 20% off
+      price.textContent = `$${discountedPrice} (20% Off!)`; // Update the displayed price
+    });
+  }
+
+  // Event Listener for Signup Form
+  document.getElementById("signupForm").addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent form from submitting
+
+    // Validate form inputs (additional validation can be added as needed)
+    const fullName = document.getElementById("fullName").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+
+    if (password !== confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+
+    // Simulate user signup success (can be replaced with actual backend logic)
+    alert(`Thank you for signing up, ${fullName}! Your 20% discount has been applied.`);
+    
+    // Show success message
+    document.getElementById("signupSuccessMessage").style.display = "block";
+
+    // Apply 20% discount
+    applyDiscountToPrices();
+
+    // Close the modal after a short delay
+    setTimeout(() => {
+      $('#signupModal').modal('hide'); // Bootstrap modal close function
+    }, 2000);
+  });
+
+  // Function to register for an event
+  function registerEvent(eventName) {
+    alert(`You have successfully registered for the ${eventName}!`);
+  }
+
+  // Function to handle subscription
+  function handleSubscribe() {
+    const email = document.getElementById("subscriberEmail").value.trim();
+    if (email) {
+      alert(`Thank you for subscribing! You will now receive updates on our events at ${email}.`);
+      document.getElementById("subscriberEmail").value = ''; // Clear input
+    } else {
+      alert("Please enter a valid email address.");
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+  var calendarEl = document.getElementById('calendar');
+  if (calendarEl) {
+
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+    initialView: 'dayGridMonth', // Default view is Month
+    headerToolbar: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'dayGridMonth,timeGridWeek,timeGridDay'
+    },
+    events: [
+      // Example of event data (You can modify these events or add more)
+      {
+        title: 'Coffee Tasting Workshop',
+        start: '2024-12-05T10:00:00',  // Event start date and time
+        end: '2024-12-05T12:00:00',    // Event end date and time
+        description: 'Explore various coffee blends and beans.',
+        location: 'Bean Boutique, Downtown',
+      },
+      {
+        title: 'Brewing Masterclass',
+        start: '2024-12-06T14:00:00',
+        end: '2024-12-06T16:00:00',
+        description: 'Learn various brewing techniques.',
+        location: 'Bean Boutique, Downtown',
+      },
+      {
+        title: 'Latte Art Workshop',
+        start: '2024-12-07T13:00:00',
+        end: '2024-12-07T15:00:00',
+        description: 'Master the art of creating beautiful latte designs.',
+        location: 'Bean Boutique, Downtown',
+      },
+      {
+        title: 'Coffee History & Culture Seminar',
+        start: '2024-12-08T11:00:00',
+        end: '2024-12-08T13:00:00',
+        description: 'Explore coffee\'s impact around the world.',
+        location: 'Bean Boutique, Downtown',
+      },
+    ],
+    eventClick: function(info) {
+      alert('Event: ' + info.event.title + '\n' +
+            'Description: ' + info.event.extendedProps.description + '\n' +
+            'Location: ' + info.event.extendedProps.location + '\n' +
+            'Start: ' + info.event.start.toISOString() + '\n' +
+            'End: ' + info.event.end.toISOString());
+    },
+  });
+
+  calendar.render();
+}else {
+        console.error("Calendar container not found!");
+      }
+});
+
+
+
+</script>
+<script src="scriptt.js"></script>
+
+<!-- Bootstrap Scripts -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.js"></script>
+  
+</body>
+</html>
